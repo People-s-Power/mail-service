@@ -3,4 +3,6 @@ export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
     getHello(): string;
+    handleResult(data: any): void;
+    accumulate(data: number[]): number;
 }
