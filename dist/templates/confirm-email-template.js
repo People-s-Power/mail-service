@@ -1,11 +1,7 @@
-// import { Employee } from "src/Entities/Employee.entity";
-// import { JobGamLogo } from "./jobgamLogo";
-
-
-
-
-
-export function ConfirmEmail(): string {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConfirmEmail = void 0;
+function ConfirmEmail() {
     return `
     <div style="word-spacing: normal; background-color: #d3e1f7; height: 100%">
     <table
@@ -164,6 +160,7 @@ export function ConfirmEmail(): string {
       </tbody>
     </table>
   </div>
-    `
+    `;
 }
-
+exports.ConfirmEmail = ConfirmEmail;
+//# sourceMappingURL=confirm-email-template.js.map

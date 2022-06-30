@@ -14,6 +14,7 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const htmlText = require("nodemailer-html-to-text");
 const nodemailer = require("nodemailer");
+const confirm_email_template_1 = require("./templates/confirm-email-template");
 let AppService = class AppService {
     constructor(configService) {
         this.configService = configService;
@@ -27,14 +28,26 @@ let AppService = class AppService {
         });
         this.transporter.use('compile', htmlText.htmlToText());
     }
-    getHello() {
+    async getHello() {
         const email = {
             from: 'ifeanyichukwuadams@outlook.com',
             to: 'kingifean@gmail.com',
             subject: 'TEst this out',
             text: 'Well it worked out fine!!'
         };
-        this.transporter.sendMail(email);
+        try {
+            await this.transporter.sendMail({
+                from: 'ifeanyichukwuadams@outlook.com',
+                to: 'kingifean@gmail.com',
+                subject: 'Verify your email address',
+                text: 'Weldone',
+                htmlText: (0, confirm_email_template_1.ConfirmEmail)(),
+                headers: { 'x-myheader': 'test header' }
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
         return 'Hello World!';
     }
 };

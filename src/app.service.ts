@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as htmlText from 'nodemailer-html-to-text'
 import * as nodemailer from 'nodemailer'
-
+import { ConfirmEmail } from './templates/confirm-email-template';
 
 @Injectable()
 export class AppService {
@@ -27,16 +27,29 @@ export class AppService {
     });
     this.transporter.use('compile', htmlText.htmlToText())
   }
-  getHello(): string {
+  async getHello() {
 
     const email = {
       from: 'ifeanyichukwuadams@outlook.com',
       to: 'kingifean@gmail.com',
       subject: 'TEst this out',
       text: 'Well it worked out fine!!'
+      
     }
-
-    this.transporter.sendMail(email)
+    try {
+        await this.transporter.sendMail({
+          from: 'ifeanyichukwuadams@outlook.com',
+          to: 'kingifean@gmail.com',
+          subject: 'Verify your email address',
+          text: 'Weldone',
+          htmlText: ConfirmEmail(),
+         // html: ConfirmEmail(user, host),
+          headers: { 'x-myheader': 'test header' }
+        });
+      } catch (error) {
+        console.log(error);      
+        // Logger.error(`NODE-MAILER.sendHtmlMailAsync: ${error.toString()}`);
+      }
     
     return 'Hello World!';
   }

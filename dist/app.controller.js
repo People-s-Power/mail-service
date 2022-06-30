@@ -31,7 +31,7 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
+    __metadata("design:returntype", void 0)
 ], AppController.prototype, "getHello", null);
 __decorate([
     (0, microservices_1.EventPattern)('test_log'),
