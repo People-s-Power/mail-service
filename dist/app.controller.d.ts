@@ -1,8 +1,9 @@
+import { RmqContext } from '@nestjs/microservices';
 import { AppService } from './app.service';
+import { ConfirmUserDTO } from './dto';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
-    getHello(): Promise<string>;
-    handleResult(data: any): void;
+    handleResult(data: ConfirmUserDTO, ctx: RmqContext): void;
     accumulate(data: number[]): number;
 }

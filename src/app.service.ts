@@ -3,6 +3,10 @@ import { ConfigService } from '@nestjs/config';
 import * as htmlText from 'nodemailer-html-to-text'
 import * as nodemailer from 'nodemailer'
 import { ConfirmEmail } from './templates/confirm-email-template';
+import { SES } from 'aws-sdk';
+import * as Mailjet from 'node-mailjet'
+import { ConfirmUserDTO } from './dto';
+
 
 @Injectable()
 export class AppService {
@@ -25,32 +29,56 @@ export class AppService {
       //   privateKey: this.configService.get('DKIM_PRIVATEKEY')
       // }
     });
-    this.transporter.use('compile', htmlText.htmlToText())
-  }
-  async getHello() {
+    // this.transporter.use('compile', htmlText.htmlToText())
 
-    const email = {
-      from: 'ifeanyichukwuadams@outlook.com',
-      to: 'kingifean@gmail.com',
-      subject: 'TEst this out',
-      text: 'Well it worked out fine!!'
-      
-    }
+    
+  }
+    private SES_CONFIG = {
+        apiVersion: "2010-12-01",
+        accessKeyId: this.configService.get("Access_Key_ID"),
+        secretAccessKey: this.configService.get("Secret_Access_Key"),
+        region: this.configService.get("Region"),
+    };
+
+    private AWS_SES = new SES(this.SES_CONFIG);
+
+  async confirmUser(data: ConfirmUserDTO) {
+
     try {
         await this.transporter.sendMail({
           from: 'ifeanyichukwuadams@outlook.com',
-          to: 'kingifean@gmail.com',
+          to: data.email,
           subject: 'Verify your email address',
           text: 'Weldone',
-          htmlText: ConfirmEmail(),
+          html: ConfirmEmail(data.username, data.code),
+          // htmlText: ConfirmEmail(),
          // html: ConfirmEmail(user, host),
           headers: { 'x-myheader': 'test header' }
         });
+        // const params = {
+        //   Source: 'People-power <evansb45@yahoo.com>',
+        //   Destination: {
+        //     ToAddresses: [
+        //       'ifeanyichukwuadams@outlook.com'
+        //     ],
+        //   },
+        //   Message: {
+        //     Body: {
+        //       Html: {
+        //         Charset: 'UTF-8',
+        //         Data: ConfirmEmail(),
+        //       },
+        //     },
+        //     Subject: {
+        //       Charset: 'UTF-8',
+        //       Data: `Verify your email address`,
+        //     }
+        //   },
+        // };
+        // return this.AWS_SES.sendEmail(params).promise();
       } catch (error) {
         console.log(error);      
         // Logger.error(`NODE-MAILER.sendHtmlMailAsync: ${error.toString()}`);
       }
-    
-    return 'Hello World!';
   }
 }

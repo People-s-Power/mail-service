@@ -1,10 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConfirmEmail = void 0;
-const logo = 'https://drive.google.com/file/d/1-IpouXepWE1OZllYILvpcslGYZyZmpJF/view?usp=sharing';
-function ConfirmEmail(username, code) {
-    return `
-    <div style="word-spacing: normal; background-color: #d3e1f7; height: 100%">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div style="word-spacing: normal; background-color: #d3e1f7; height: 100%">
     <table
       align="center"
       border="0"
@@ -49,7 +53,7 @@ function ConfirmEmail(username, code) {
                       "
                     >
                     
-                    <img alt="people-power" width="100%" data-mce-src="${logo}"   src="${logo}" /> 
+                     
                     </td>
                     <td style="text-align: right">
                       <svg
@@ -101,7 +105,7 @@ function ConfirmEmail(username, code) {
                       colspan="2"
                       style="padding: 40px 0px 10px 0px; font-weight: 600"
                     >
-                      Hi, ${username}
+                      Hi, ${'Adams'}
                     </td>
                   </tr>
                   <tr>
@@ -123,17 +127,17 @@ function ConfirmEmail(username, code) {
                       colspan="2"
                       style="text-align: center; padding-bottom: 20px"
                     >
-                      <a  style="text-decoration: none">
+                      <a href="${'host'}/verify/${'user.verificationToken'}/${1}/?utm_source=newsletter&utm_medium=email&utm_campaign=email" style="text-decoration: none">
                         <div
                           style="
-                            background-color: #ff9f2f;
+                            background-color: #4caf50;
                             padding: 15px 0px;
                             color: #ffffff;
                             font-size: 1.3rem;
                             border-radius: 5px;
                           "
                         >
-                          ${code}
+                          Confirm your email
                         </div></a
                       >
                     </td>
@@ -148,7 +152,7 @@ function ConfirmEmail(username, code) {
                         <a href="${'host'}/privacy-policy">Privacy Policy</a> | Manage Settings
                       </p>
                       <p style="margin-top: 4px">
-                        ©People's power Suit 15, Milkah Plaza, Mgbuoba 500272, Port
+                        ©Jobgam Suit 15, Milkah Plaza, Mgbuoba 500272, Port
                         Harcourt
                       </p>
                     </td>
@@ -161,7 +165,6 @@ function ConfirmEmail(username, code) {
       </tbody>
     </table>
   </div>
-    `;
-}
-exports.ConfirmEmail = ConfirmEmail;
-//# sourceMappingURL=confirm-email-template.js.map
+    
+</body>
+</html>

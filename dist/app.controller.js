@@ -8,35 +8,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const app_service_1 = require("./app.service");
+const dto_1 = require("./dto");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
-    getHello() {
-        return this.appService.getHello();
-    }
-    handleResult(data) {
-        console.log(data);
+    handleResult(data, ctx) {
+        const channel = ctx.getChannelRef();
+        const originalMsg = ctx.getMessage();
+        this.appService.confirmUser(data);
+        channel.ack(originalMsg);
     }
     accumulate(data) {
         return (data || []).reduce((a, b) => a + b);
     }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, microservices_1.EventPattern)('confirm-user'),
+    __param(0, (0, microservices_1.Payload)()),
+    __param(1, (0, microservices_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "getHello", null);
-__decorate([
-    (0, microservices_1.EventPattern)('test_log'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [dto_1.ConfirmUserDTO, microservices_1.RmqContext]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "handleResult", null);
 __decorate([

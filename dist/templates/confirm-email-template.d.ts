@@ -1,1 +1,1 @@
-export declare function ConfirmEmail(): string;
+export declare function ConfirmEmail(username: any, code: any): string;

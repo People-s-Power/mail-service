@@ -1,19 +1,23 @@
 import { Controller, Get } from '@nestjs/common';
-import { EventPattern, MessagePattern } from '@nestjs/microservices';
+import { Ctx, EventPattern, MessagePattern, Payload, RmqContext} from '@nestjs/microservices';
 import { AppService } from './app.service';
+import { ConfirmUserDTO } from './dto'
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello() {
-    return this.appService.getHello();
-  }
+  // @Get()
+  // getHello() {
+  //   return this.appService.confirmUser();
+  // }
 
-  @EventPattern('test_log')
-  handleResult(data) {
-    console.log(data)
+  @EventPattern('confirm-user')
+  handleResult(@Payload() data: ConfirmUserDTO, @Ctx() ctx: RmqContext) {
+    const channel = ctx.getChannelRef()
+    const originalMsg = ctx.getMessage()
+    this.appService.confirmUser(data)
+    channel.ack(originalMsg)
   }
 
   @MessagePattern({ cmd: 'sum' })

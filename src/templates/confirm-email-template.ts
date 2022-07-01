@@ -1,11 +1,13 @@
 // import { Employee } from "src/Entities/Employee.entity";
-// import { JobGamLogo } from "./jobgamLogo";
+// import logo from  './img/logo.png';
+
+const logo = 'https://drive.google.com/file/d/1-IpouXepWE1OZllYILvpcslGYZyZmpJF/view?usp=sharing'
 
 
 
 
 
-export function ConfirmEmail(): string {
+export function ConfirmEmail(username, code): string {
     return `
     <div style="word-spacing: normal; background-color: #d3e1f7; height: 100%">
     <table
@@ -52,7 +54,7 @@ export function ConfirmEmail(): string {
                       "
                     >
                     
-                     
+                    <img alt="people-power" width="100%" data-mce-src="${logo}"   src="${logo}" /> 
                     </td>
                     <td style="text-align: right">
                       <svg
@@ -104,7 +106,7 @@ export function ConfirmEmail(): string {
                       colspan="2"
                       style="padding: 40px 0px 10px 0px; font-weight: 600"
                     >
-                      Hi, ${'Adams'}
+                      Hi, ${username}
                     </td>
                   </tr>
                   <tr>
@@ -126,17 +128,17 @@ export function ConfirmEmail(): string {
                       colspan="2"
                       style="text-align: center; padding-bottom: 20px"
                     >
-                      <a href="${'host'}/verify/${'user.verificationToken'}/${1}/?utm_source=newsletter&utm_medium=email&utm_campaign=email" style="text-decoration: none">
+                      <a  style="text-decoration: none">
                         <div
                           style="
-                            background-color: #4caf50;
+                            background-color: #ff9f2f;
                             padding: 15px 0px;
                             color: #ffffff;
                             font-size: 1.3rem;
                             border-radius: 5px;
                           "
                         >
-                          Confirm your email
+                          ${code}
                         </div></a
                       >
                     </td>
@@ -151,7 +153,7 @@ export function ConfirmEmail(): string {
                         <a href="${'host'}/privacy-policy">Privacy Policy</a> | Manage Settings
                       </p>
                       <p style="margin-top: 4px">
-                        ©Jobgam Suit 15, Milkah Plaza, Mgbuoba 500272, Port
+                        ©People's power Suit 15, Milkah Plaza, Mgbuoba 500272, Port
                         Harcourt
                       </p>
                     </td>

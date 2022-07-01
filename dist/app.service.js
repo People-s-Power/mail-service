@@ -12,12 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
-const htmlText = require("nodemailer-html-to-text");
 const nodemailer = require("nodemailer");
 const confirm_email_template_1 = require("./templates/confirm-email-template");
+const aws_sdk_1 = require("aws-sdk");
 let AppService = class AppService {
     constructor(configService) {
         this.configService = configService;
+        this.SES_CONFIG = {
+            apiVersion: "2010-12-01",
+            accessKeyId: this.configService.get("Access_Key_ID"),
+            secretAccessKey: this.configService.get("Secret_Access_Key"),
+            region: this.configService.get("Region"),
+        };
+        this.AWS_SES = new aws_sdk_1.SES(this.SES_CONFIG);
         this.transporter = nodemailer.createTransport({
             service: 'hotmail',
             auth: {
@@ -26,29 +33,21 @@ let AppService = class AppService {
             },
             logger: true,
         });
-        this.transporter.use('compile', htmlText.htmlToText());
     }
-    async getHello() {
-        const email = {
-            from: 'ifeanyichukwuadams@outlook.com',
-            to: 'kingifean@gmail.com',
-            subject: 'TEst this out',
-            text: 'Well it worked out fine!!'
-        };
+    async confirmUser(data) {
         try {
             await this.transporter.sendMail({
                 from: 'ifeanyichukwuadams@outlook.com',
-                to: 'kingifean@gmail.com',
+                to: data.email,
                 subject: 'Verify your email address',
                 text: 'Weldone',
-                htmlText: (0, confirm_email_template_1.ConfirmEmail)(),
+                html: (0, confirm_email_template_1.ConfirmEmail)(data.username, data.code),
                 headers: { 'x-myheader': 'test header' }
             });
         }
         catch (error) {
             console.log(error);
         }
-        return 'Hello World!';
     }
 };
 AppService = __decorate([
