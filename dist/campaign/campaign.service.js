@@ -13,6 +13,7 @@ exports.CampaignService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const nodemailer = require("nodemailer");
+const create_campaign_1 = require("../templates/create-campaign");
 let CampaignService = class CampaignService {
     constructor(configService) {
         this.configService = configService;
@@ -26,7 +27,23 @@ let CampaignService = class CampaignService {
         });
     }
     createdCampaign(data) {
-        console.log(data);
+        const campaigns = data.campaigns;
+        const promotedCampaigns = campaigns.filter(camp => camp.promoted === true);
+        try {
+            data.users.forEach(async (user) => {
+                await this.transporter.sendMail({
+                    from: 'ifeanyichukwuadams@outlook.com',
+                    to: user.email,
+                    subject: `Created campaign ${data.campaign.slug}`,
+                    text: 'Weldone',
+                    html: (0, create_campaign_1.createCampaign)(user.username, data.campaign, promotedCampaigns),
+                    headers: { 'x-myheader': 'test header' }
+                });
+            });
+        }
+        catch (error) {
+            throw error;
+        }
     }
 };
 CampaignService = __decorate([

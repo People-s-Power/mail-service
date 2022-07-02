@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CampaignController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
+const campaign_dto_1 = require("./campaign.dto");
 const campaign_service_1 = require("./campaign.service");
 let CampaignController = class CampaignController {
     constructor(campaignService) {
@@ -32,7 +33,7 @@ __decorate([
     __param(0, (0, microservices_1.Payload)()),
     __param(1, (0, microservices_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, microservices_1.RmqContext]),
+    __metadata("design:paramtypes", [campaign_dto_1.payloadDTO, microservices_1.RmqContext]),
     __metadata("design:returntype", void 0)
 ], CampaignController.prototype, "campaignCreated", null);
 CampaignController = __decorate([
