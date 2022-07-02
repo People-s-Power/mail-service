@@ -27,6 +27,12 @@ let CampaignController = class CampaignController {
         this.campaignService.createdCampaign(data);
         channel.ack(originalMsg);
     }
+    endorsedMail(data, ctx) {
+        const channel = ctx.getChannelRef();
+        const originalMsg = ctx.getMessage();
+        this.campaignService.endosedMail(data);
+        channel.ack(originalMsg);
+    }
 };
 __decorate([
     (0, microservices_1.EventPattern)('campaign-created'),
@@ -36,6 +42,14 @@ __decorate([
     __metadata("design:paramtypes", [campaign_dto_1.payloadDTO, microservices_1.RmqContext]),
     __metadata("design:returntype", void 0)
 ], CampaignController.prototype, "campaignCreated", null);
+__decorate([
+    (0, microservices_1.EventPattern)('campaign-endorsed'),
+    __param(0, (0, microservices_1.Payload)()),
+    __param(1, (0, microservices_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [campaign_dto_1.endorsedDTO, microservices_1.RmqContext]),
+    __metadata("design:returntype", void 0)
+], CampaignController.prototype, "endorsedMail", null);
 CampaignController = __decorate([
     (0, common_1.Controller)('campaign'),
     __metadata("design:paramtypes", [campaign_service_1.CampaignService])

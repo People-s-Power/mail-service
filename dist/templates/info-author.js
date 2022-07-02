@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConfirmEmail = void 0;
+exports.infoAuthor = void 0;
 const logo = 'https://drive.google.com/file/d/1-IpouXepWE1OZllYILvpcslGYZyZmpJF/view?usp=sharing';
-function ConfirmEmail(username, code) {
+function infoAuthor(author, endorserName, campaign) {
     return `
     <div style="word-spacing: normal; background-color: #d3e1f7; height: 100%">
     <table
@@ -101,20 +101,14 @@ function ConfirmEmail(username, code) {
                       colspan="2"
                       style="padding: 40px 0px 10px 0px; font-weight: 600"
                     >
-                      Hi, ${username}
+                      Hi, ${author.name}
                     </td>
                   </tr>
                   <tr>
                     <td colspan="2" style="padding-bottom: 110px; color: #808080">
-                      <p>
-                        Thank you for joining People's power. You can now take advantage
-                        of membership benefits.
-                      </p>
   
                       <p>
-                        Click the button below to confirm that this email is
-                        yours. After that, we will be able to send you new
-                        campaigns according to your subscriptions
+                        ${endorserName} just endorsed your campaign
                       </p>
                     </td>
                   </tr>
@@ -133,7 +127,7 @@ function ConfirmEmail(username, code) {
                             border-radius: 5px;
                           "
                         >
-                          ${code}
+                         View campaign
                         </div></a
                       >
                     </td>
@@ -163,5 +157,5 @@ function ConfirmEmail(username, code) {
   </div>
     `;
 }
-exports.ConfirmEmail = ConfirmEmail;
-//# sourceMappingURL=confirm-email-template.js.map
+exports.infoAuthor = infoAuthor;
+//# sourceMappingURL=info-author.js.map

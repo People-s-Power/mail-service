@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { Ctx, EventPattern, MessagePattern, Payload, RmqContext} from '@nestjs/microservices';
-import { payloadDTO } from './campaign.dto';
+import { endorsedDTO, payloadDTO } from './campaign.dto';
 import { CampaignService } from './campaign.service';
 // import {  }
 
@@ -13,6 +13,14 @@ export class CampaignController {
     const channel = ctx.getChannelRef()
     const originalMsg = ctx.getMessage()
     this.campaignService.createdCampaign(data)
+    channel.ack(originalMsg)
+  }
+  
+  @EventPattern('campaign-endorsed')
+  endorsedMail(@Payload() data: endorsedDTO, @Ctx() ctx: RmqContext) {
+    const channel = ctx.getChannelRef()
+    const originalMsg = ctx.getMessage()
+    this.campaignService.endosedMail(data)
     channel.ack(originalMsg)
   }
 }

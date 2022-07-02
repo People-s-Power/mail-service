@@ -54,7 +54,7 @@ export function ConfirmEmail(username, code): string {
                       "
                     >
                     
-                    <img alt="people-power" width="100%" data-mce-src="${logo}"   src="${logo}" /> 
+                    <img alt="people-power" width="100%" data-mce-src="${logo}"   src="https://drive.google.com/file/d/1-IpouXepWE1OZllYILvpcslGYZyZmpJF/view?usp=sharing" /> 
                     </td>
                     <td style="text-align: right">
                       <svg
@@ -112,7 +112,7 @@ export function ConfirmEmail(username, code): string {
                   <tr>
                     <td colspan="2" style="padding-bottom: 110px; color: #808080">
                       <p>
-                        Thank you for joining Jobgam. You can now take advantage
+                        Thank you for joining People's power. You can now take advantage
                         of membership benefits.
                       </p>
   

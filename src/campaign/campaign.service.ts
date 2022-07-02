@@ -1,8 +1,9 @@
 import { Injectable, Logger, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer'
+import { infoAuthor } from 'src/templates/info-author';
 import { createCampaign } from '../templates/create-campaign'
-import { campaignDTO, payloadDTO, userDTO } from './campaign.dto';
+import { campaignDTO, endorsedDTO, payloadDTO, userDTO } from './campaign.dto';
 
 @Injectable()
 export class CampaignService {
@@ -38,6 +39,22 @@ export class CampaignService {
     } catch (error) {
       throw error
     }
+  }
+
+  async endosedMail(data: endorsedDTO) {
+    try {
+      await this.transporter.sendMail({
+        from: 'ifeanyichukwuadams@outlook.com',
+        to: data.author.email,
+        subject: `Endoserd campaign ${data.campaign.slug}`,
+        text: '',
+        html: infoAuthor(data.author, data.endorserName, data.campaign),
+        headers: { 'x-myheader': 'test header' }
+      });
+    } catch (error) {
+      throw error
+    }
+    
   }
 
 }

@@ -2,6 +2,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createCampaign = void 0;
 function createCampaign(username, campaign, promotedCampaigns) {
+    const promoted = promotedCampaigns.forEach(item => {
+        return `
+        <div class="explore1">
+        <img width="150px" height="100px"
+            src="${item.image}"
+            alt="">
+        <div>
+            <p><b>ID2020</b></p>
+            <a href="">View Campaign</a>
+        </div>
+    </div>
+        `;
+    });
     return `
   <head>
   <meta charset="UTF-8">
@@ -277,24 +290,7 @@ function createCampaign(username, campaign, promotedCampaigns) {
       <p class="remove">Didn’t endorse this campaign? <a href="">Remove your endorsement</a></p>
       <h3>Explore other campaigns promoted by People-s-Powerusers</h3>
       <div class="explore">
-          <div class="explore1">
-              <img width="150px" height="100px"
-                  src="https://images.unsplash.com/photo-1655618746151-aed1c3eb718c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                  alt="">
-              <div>
-                  <p><b>ID2020</b></p>
-                  <a href="">View Campaign</a>
-              </div>
-          </div>
-          <div class="explore2">
-              <img width="150px" height="100px"
-                  src="https://images.unsplash.com/photo-1655618746151-aed1c3eb718c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                  alt="">
-              <div>
-                  <p><b>Sack Racist Dr Jean-Paul Mira and Camille Locht Now</b></p>
-                  <a href="">View Campaign</a>
-              </div>
-          </div>
+        ${promoted}
       </div>
 
   </div>

@@ -13,6 +13,7 @@ exports.CampaignService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const nodemailer = require("nodemailer");
+const info_author_1 = require("../templates/info-author");
 const create_campaign_1 = require("../templates/create-campaign");
 let CampaignService = class CampaignService {
     constructor(configService) {
@@ -39,6 +40,21 @@ let CampaignService = class CampaignService {
                     html: (0, create_campaign_1.createCampaign)(user.username, data.campaign, promotedCampaigns),
                     headers: { 'x-myheader': 'test header' }
                 });
+            });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async endosedMail(data) {
+        try {
+            await this.transporter.sendMail({
+                from: 'ifeanyichukwuadams@outlook.com',
+                to: data.author.email,
+                subject: `Endoserd campaign ${data.campaign.slug}`,
+                text: '',
+                html: (0, info_author_1.infoAuthor)(data.author, data.endorserName, data.campaign),
+                headers: { 'x-myheader': 'test header' }
             });
         }
         catch (error) {
