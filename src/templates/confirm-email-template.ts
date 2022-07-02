@@ -119,7 +119,7 @@ export function ConfirmEmail(username, code): string {
                       <p>
                         Click the button below to confirm that this email is
                         yours. After that, we will be able to send you new
-                        vacancies according to your subscriptions
+                        campaigns according to your subscriptions
                       </p>
                     </td>
                   </tr>

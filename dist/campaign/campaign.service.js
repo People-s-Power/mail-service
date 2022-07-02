@@ -9,22 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppService = void 0;
+exports.CampaignService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const nodemailer = require("nodemailer");
-const confirm_email_template_1 = require("./templates/confirm-email-template");
-const aws_sdk_1 = require("aws-sdk");
-let AppService = class AppService {
+let CampaignService = class CampaignService {
     constructor(configService) {
         this.configService = configService;
-        this.SES_CONFIG = {
-            apiVersion: "2010-12-01",
-            accessKeyId: this.configService.get("Access_Key_ID"),
-            secretAccessKey: this.configService.get("Secret_Access_Key"),
-            region: this.configService.get("Region"),
-        };
-        this.AWS_SES = new aws_sdk_1.SES(this.SES_CONFIG);
         this.transporter = nodemailer.createTransport({
             service: 'hotmail',
             auth: {
@@ -34,25 +25,13 @@ let AppService = class AppService {
             logger: true,
         });
     }
-    async confirmUser(data) {
-        try {
-            await this.transporter.sendMail({
-                from: 'ifeanyichukwuadams@outlook.com',
-                to: data.email,
-                subject: 'Verify your email address',
-                text: 'Weldone',
-                html: (0, confirm_email_template_1.ConfirmEmail)(data.username, data.code),
-                headers: { 'x-myheader': 'test header' }
-            });
-        }
-        catch (error) {
-            console.log(error);
-        }
+    createdCampaign(data) {
+        console.log(data);
     }
 };
-AppService = __decorate([
-    (0, common_1.Injectable)({ scope: common_1.Scope.REQUEST }),
+CampaignService = __decorate([
+    (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [config_1.ConfigService])
-], AppService);
-exports.AppService = AppService;
-//# sourceMappingURL=app.service.js.map
+], CampaignService);
+exports.CampaignService = CampaignService;
+//# sourceMappingURL=campaign.service.js.map
