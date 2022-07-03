@@ -7,19 +7,22 @@ const common_1 = require("@nestjs/common");
 async function bootstrap() {
     const rmqUrl = process.env.RMQ_URL;
     const logger = new common_1.Logger('MAIN');
-    const app = await core_1.NestFactory.createMicroservice(app_module_1.AppModule, {
+    const PORT = process.env.PORT;
+    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.connectMicroservice({
         transport: microservices_1.Transport.RMQ,
         options: {
             urls: rmqUrl,
             queue: 'mail_queue',
-            noAck: false,
             queueOptions: {
                 durable: false
             }
         }
     });
     logger.log('microservices is listening');
-    await app.listen();
+    await app.listen(PORT, () => {
+        common_1.Logger.log(`server started on port ${PORT}`);
+    });
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
