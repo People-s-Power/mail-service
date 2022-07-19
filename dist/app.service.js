@@ -36,6 +36,7 @@ let AppService = class AppService {
     }
     async confirmUser(data) {
         try {
+            console.log(data);
             await this.transporter.sendMail({
                 from: 'ifeanyichukwuadams@outlook.com',
                 to: data.email,

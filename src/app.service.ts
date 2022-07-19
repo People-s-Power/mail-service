@@ -33,6 +33,8 @@ export class AppService {
   async confirmUser(data: ConfirmUserDTO) {
 
     try {
+
+      console.log(data)
         await this.transporter.sendMail({
           from: 'ifeanyichukwuadams@outlook.com',
           to: data.email,
