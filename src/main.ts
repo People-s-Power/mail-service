@@ -33,7 +33,7 @@ async function bootstrap() {
       }
     })
 
-    // await app.startAllMicroservices()
+    await app.startAllMicroservices()
   
   logger.log('microservices is listening')
   await app.listen(PORT, () => {

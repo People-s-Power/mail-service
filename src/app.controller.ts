@@ -20,6 +20,11 @@ export class AppController {
     channel.ack(originalMsg)
   }
 
+  @EventPattern('test')
+  test() {
+    console.log('FirShotes')
+  }
+
   @MessagePattern({ cmd: 'sum' })
   accumulate(data: number[]): number {
     return (data || []).reduce((a, b) => a + b);

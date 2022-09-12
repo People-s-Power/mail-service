@@ -27,6 +27,9 @@ let AppController = class AppController {
         this.appService.confirmUser(data);
         channel.ack(originalMsg);
     }
+    test() {
+        console.log('FirShotes');
+    }
     accumulate(data) {
         return (data || []).reduce((a, b) => a + b);
     }
@@ -39,6 +42,12 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.ConfirmUserDTO, microservices_1.RmqContext]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "handleResult", null);
+__decorate([
+    (0, microservices_1.EventPattern)('test'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "test", null);
 __decorate([
     (0, microservices_1.MessagePattern)({ cmd: 'sum' }),
     __metadata("design:type", Function),

@@ -19,6 +19,7 @@ async function bootstrap() {
             }
         }
     });
+    await app.startAllMicroservices();
     logger.log('microservices is listening');
     await app.listen(PORT, () => {
         common_1.Logger.log(`server started on port ${PORT}`);
