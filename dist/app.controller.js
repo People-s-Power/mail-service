@@ -21,6 +21,9 @@ let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
+    getHello() {
+        return `Welcome to people's power's mail services`;
+    }
     handleResult(data, ctx) {
         const channel = ctx.getChannelRef();
         const originalMsg = ctx.getMessage();
@@ -34,6 +37,12 @@ let AppController = class AppController {
         return (data || []).reduce((a, b) => a + b);
     }
 };
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "getHello", null);
 __decorate([
     (0, microservices_1.EventPattern)('confirm-user'),
     __param(0, (0, microservices_1.Payload)()),

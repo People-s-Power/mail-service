@@ -7,10 +7,10 @@ import { ConfirmUserDTO } from './dto'
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  // @Get()
-  // getHello() {
-  //   return this.appService.confirmUser();
-  // }
+  @Get()
+  getHello() {
+    return `Welcome to people's power's mail services`;
+  }
 
   @EventPattern('confirm-user')
   handleResult(@Payload() data: ConfirmUserDTO, @Ctx() ctx: RmqContext) {
